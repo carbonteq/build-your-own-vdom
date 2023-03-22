@@ -5,9 +5,10 @@ function renderElement(VNode: VElement) {
 
   for (let key in VNode.attributes) {
     realElement.setAttribute(key, VNode.attributes[key]);
+    if (key.startsWith("on")) {
+      realElement.addEventListener("click", eval(VNode.attributes[key]));
+    }
   }
-
-  console.log(VNode.children);
 
   for (const child of VNode.children) {
     const realChild = render(child);
